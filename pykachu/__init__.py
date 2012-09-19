@@ -6,6 +6,8 @@ import os
 
 
 REDIS_HOST = os.environ.get("PYKACHU_REDIS_SERVER", "127.0.0.1")
+REDIS_PORT = os.environ.get("PYKACHU_REDIS_PORT", 6379)
+REDIS_DB = os.environ.get("PYKACHU_REDIS_DB", 0)
 
 
 class JobState:
@@ -26,7 +28,8 @@ class JobServer(object):
 
     @staticmethod
     def create_pool():
-        JobServer.pool = redis.ConnectionPool(host=REDIS_HOST, port=6379, db=0)
+        JobServer.pool = redis.ConnectionPool(host=REDIS_HOST,
+                               port=int(REDIS_PORT), db=int(REDIS_DB))
 
     def publish_job(self, job, job_dict):
         """
