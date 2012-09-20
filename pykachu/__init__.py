@@ -102,6 +102,7 @@ class Job(object):
         self.last_update = time.time()
         self.connection = None
         self.expiration = kwargs.get('expiration', 0)
+        self.last_step = -1
 
     def publish(self, connection=None, **kwargs):
         """
@@ -123,7 +124,9 @@ class Job(object):
     def another_step(self, data=None):
         steps_second = 1 / (time.time() - self.last_update)
         self.last_update = time.time()
-        self.connection.another_step_job(self, steps_second, data)
+        if self.last_step < self.total:
+            self.last_step += 1
+            self.connection.another_step_job(self, steps_second, data)
 
     def finish(self):
         self.connection.finish_job(self)
