@@ -45,7 +45,7 @@ class JobServer(object):
         """
         with self.connection.pipeline() as pipeline:
             if data:
-                pipeline.hset(self.get_job_id(job), 'last_item', unicode(data))
+                pipeline.hset(self.get_job_id(job), 'last_item', data)
             if job.status != "Running":
                 job.status = "Running"
                 pipeline.hset(self.get_job_id(job), 'state', job.status)
@@ -65,7 +65,7 @@ class JobServer(object):
                 pipeline.hset(self.get_job_id(job), 'data', error)
 
             if data:
-                pipeline.hset(self.get_job_id(job), 'last_item', unicode(data))
+                pipeline.hset(self.get_job_id(job), 'last_item', data)
 
             pipeline.hset(self.get_job_id(job), 'state', JobState.ERROR)
             pipeline.expire(self.get_job_id(job), job.expiration or self.expiration_after_complete)
