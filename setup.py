@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='pykachu',
-    version='0.1',
+    version='0.1.1',
     packages=['pykachu'],
     url='https://github.com/sievetech/pykachu',
     license='3-BSD',
