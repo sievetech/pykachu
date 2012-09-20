@@ -1,4 +1,4 @@
-from distutils.core import setup
+from setuptools import setup
 
 setup(
     name='pykachu',
@@ -8,5 +8,6 @@ setup(
     license='3-BSD',
     author='Sieve',
     author_email='sievetech@sieve.com.br',
-    description='Monitoramento simples de tarefas em background usando Redis como backend '
+    description='Monitoramento simples de tarefas em background usando Redis como backend ',
+    install_requires=["redis"]
 )
